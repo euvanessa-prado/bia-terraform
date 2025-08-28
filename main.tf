@@ -16,12 +16,12 @@ provider "aws" {
 }
 
 resource "aws_security_group" "bia-dev" {
-  name        = "bia-dev-tf"
-  description = "Regra para a instancia de trabalho bia-dev-tf"
+  name        = "bia-dev"
+  description = "acesso do bia dev"
   vpc_id      = "vpc-0d6774d8052299f6c"
 
   ingress {
-    description      = "Liberado 3001 para o mundo"
+    description      = "acesso para o mundo"
     from_port        = 3001
     to_port          = 3001 
     protocol         = "tcp"
@@ -35,9 +35,6 @@ resource "aws_security_group" "bia-dev" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "allow_tls"
-  }
 }
 
 resource "aws_instance" "bia-terraform" {
@@ -45,7 +42,7 @@ resource "aws_instance" "bia-terraform" {
   instance_type = "t3.micro"
   tags = {
     ambiente = "producao"
-    Name     = "bia-terraform"
+    Name     = var.instance_name
   }
   vpc_security_group_ids = [aws_security_group.bia-dev.id]
   root_block_device {
