@@ -18,3 +18,9 @@ output "instance_public_ip" {
 description = "IP publico da EC2"
 value = aws_instance.bia-terraform.public_ip
 }
+
+
+output "rds_endpoint" {
+description = "Endpoint do RDS da BIA"
+value = aws_db_instance.bia-db.endpoint
+}
