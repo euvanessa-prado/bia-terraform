@@ -41,7 +41,7 @@ resource "aws_db_instance" "bia-db" {
   kms_key_id                            = "arn:aws:kms:us-east-1:759262712909:key/717c031a-4d43-4364-a981-ba77152d036f"
   license_model                         = "postgresql-license"
   maintenance_window                    = "mon:04:52-mon:05:22"
-  manage_master_user_password           = null
+  manage_master_user_password           = true
   master_user_secret_kms_key_id         = null
   max_allocated_storage                 = 1000
   monitoring_interval                   = 0
@@ -71,5 +71,5 @@ resource "aws_db_instance" "bia-db" {
   timezone                              = null
   upgrade_storage_config                = null
   username                              = "postgres"
-  vpc_security_group_ids                = [aws_security_group.bia-db.id]
+  # vpc_security_group_ids = [aws_security_group.bia-db.id] # Temporariamente comentado
 }
