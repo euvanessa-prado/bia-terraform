@@ -33,3 +33,23 @@ resource "aws_iam_role" "role-acesso-ssm" {
   tags                  = {}
   tags_all              = {}
 }
+
+resource "aws_iam_role_policy_attachment" "role_acesso_ssm_policy" {
+  role       = aws_iam_role.role-acesso-ssm.name
+  policy_arn = aws_iam_policy.get_secret_bia_db.arn
+}
+
+resource "aws_iam_role_policy_attachment" "ssm_managed" {
+  role       = aws_iam_role.role-acesso-ssm.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_role_policy_attachment" "ecr_read_only" {
+  role       = aws_iam_role.role-acesso-ssm.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_full_access" {
+  role       = aws_iam_role.role-acesso-ssm.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonECS_FullAccess"
+}
